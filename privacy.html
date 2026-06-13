@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<title>Privacy Policy — Kord</title>
+<meta name="description" content="Kord's privacy policy. How we handle your data — short version: we don't collect it." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Privacy Policy — Kord" />
+<meta property="og:description" content="How Kord handles your data — short version: we don't collect it." />
+<meta property="og:image" content="https://kordsound.com/assets/og.png" />
+<meta property="og:image:width" content="2400" />
+<meta property="og:image:height" content="1260" />
+<meta property="og:url" content="https://kordsound.com/privacy.html" />
+<meta property="og:site_name" content="Kord" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://kordsound.com/assets/og.png" />
+<meta name="theme-color" content="#3A1E0F" />
+<link rel="icon" type="image/png" href="assets/kord-logo.png" />
+<link rel="apple-touch-icon" href="assets/kord-logo.png" />
+<link rel="canonical" href="https://kordsound.com/privacy.html" />
+<style id="kord-css">
+/* ============================================================
+   KORD — site stylesheet
+   Warm, premium audiophile. Espresso + near-black + amber gold.
+   Palette pulled from the app's BrandPalette.swift.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Brand fields */
+  --near-black:   #090806;
+  --surface:      #13110D;
+  --espresso:     #3A1E0F;
+  --shadow-brown: #251207;
+  --walnut:       #5A2F16;
+
+  /* Gold / accent */
+  --gold:    #C58A3A;
+  --gold-hi: #E0AD5D;
+  --bronze:  #8A5524;
+
+  /* Text */
+  --text:        #F1E7D7;
+  --text-soft:   #D8C8B2;
+  --text-muted:  #9C8067;
+  --text-faint:  #6E5A47;
+
+  /* Lines & glass */
+  --line:        rgba(197, 138, 58, 0.16);
+  --line-strong: rgba(197, 138, 58, 0.30);
+  --glass:       rgba(36, 24, 14, 0.55);
+
+  /* Type */
+  --serif: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+  --sans:  'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono:  'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Layout */
+  --maxw: 1180px;
+  --gutter: clamp(20px, 5vw, 56px);
+  --radius: 16px;
+  --radius-sm: 10px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-weight: 400;
+  color: var(--text);
+  background: var(--near-black);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(900px 600px at 78% -10%, rgba(197,138,58,0.14), transparent 60%),
+    radial-gradient(1100px 800px at 10% 8%, rgba(58,30,15,0.85), transparent 62%),
+    radial-gradient(1000px 900px at 50% 120%, rgba(58,30,15,0.55), transparent 60%),
+    var(--near-black);
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.section { padding-block: clamp(64px, 12vw, 140px); }
+.section--tight { padding-block: clamp(48px, 8vw, 96px); }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: "";
+  width: 22px; height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0;
+  text-wrap: pretty;
+}
+.display {
+  font-size: clamp(2.6rem, 6.6vw, 5rem);
+  font-weight: 600;
+  line-height: 1.12;
+  text-wrap: pretty;
+}
+.h2 { font-size: clamp(2rem, 4.6vw, 3.4rem); }
+.h3 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); }
+
+.lead {
+  font-size: clamp(1.05rem, 1.5vw, 1.28rem);
+  color: var(--text-soft);
+  max-width: 56ch;
+  font-weight: 350;
+  text-wrap: pretty;
+}
+.muted { color: var(--text-muted); }
+
+.gold-text {
+  background: linear-gradient(180deg, var(--gold-hi), var(--gold) 55%, var(--bronze));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.98rem;
+  line-height: 1;
+  padding: 14px 22px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease),
+              background .25s var(--ease), border-color .25s var(--ease);
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(1px) scale(0.99); }
+.btn--gold {
+  color: #20120A;
+  background: linear-gradient(180deg, var(--gold-hi), var(--gold) 70%);
+  box-shadow: 0 1px 0 rgba(255,236,200,0.45) inset, 0 10px 30px -10px rgba(197,138,58,0.7);
+}
+.btn--gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 1px 0 rgba(255,236,200,0.55) inset, 0 16px 40px -12px rgba(197,138,58,0.85);
+}
+.btn--ghost {
+  color: var(--text);
+  border-color: var(--line-strong);
+  background: rgba(241,231,215,0.02);
+}
+.btn--ghost:hover { border-color: var(--gold); color: var(--gold-hi); background: rgba(197,138,58,0.06); }
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(14px) saturate(140%);
+  background: linear-gradient(180deg, rgba(9,8,6,0.82), rgba(9,8,6,0.5));
+  border-bottom: 1px solid var(--line);
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+.wordmark {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.7rem;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  display: inline-block;
+  white-space: nowrap;
+}
+.wordmark .dot { color: var(--gold); margin-left: -0.04em; }
+.wordmark--gold {
+  background: linear-gradient(180deg, var(--gold-hi), var(--gold) 60%, var(--bronze));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 3vw, 36px);
+}
+.nav__links {
+  display: flex;
+  gap: clamp(16px, 2.4vw, 30px);
+  list-style: none;
+  margin: 0; padding: 0;
+}
+.nav__links a {
+  font-size: 0.95rem;
+  color: var(--text-soft);
+  font-weight: 450;
+  position: relative;
+  padding-block: 6px;
+  transition: color .2s var(--ease);
+}
+.nav__links a:hover { color: var(--text); }
+.nav__links a.is-active { color: var(--gold-hi); }
+.nav__links a.is-active::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+  height: 1px; background: var(--gold);
+}
+.nav__cta { display: inline-flex; }
+
+.nav-toggle {
+  display: none;
+  background: none; border: 1px solid var(--line-strong);
+  border-radius: 8px; width: 40px; height: 38px;
+  cursor: pointer; color: var(--text);
+  align-items: center; justify-content: center;
+}
+.nav-toggle svg { width: 20px; height: 20px; }
+
+.page-hero { padding-top: clamp(56px, 9vw, 110px); padding-bottom: clamp(24px, 4vw, 40px); }
+.page-hero h1 { margin-bottom: 26px; }
+.page-hero .lead { margin-inline: 0; }
+
+.prose { max-width: 70ch; }
+.prose h2 { font-size: 1.7rem; margin: 38px 0 14px; }
+.prose h3 { font-size: 1.3rem; margin: 28px 0 10px; }
+.prose p { color: var(--text-soft); margin: 0 0 18px; }
+.prose ul { padding-left: 0; list-style: none; display: grid; gap: 11px; margin: 0 0 22px; }
+.prose li { display: flex; gap: 12px; color: var(--text-soft); }
+.prose li::before { content: "—"; color: var(--gold); flex-shrink: 0; }
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding-block: 56px 40px;
+  margin-top: 40px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, 1fr);
+  gap: 40px 32px;
+}
+.footer-brand .wordmark { font-size: 1.5rem; margin-bottom: 14px; }
+.footer-brand p { color: var(--text-muted); font-size: 0.92rem; max-width: 30ch; }
+.footer-col h4 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-faint); margin: 0 0 16px; font-weight: 500;
+}
+.footer-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
+.footer-col a { color: var(--text-muted); font-size: 0.94rem; transition: color .2s; }
+.footer-col a:hover { color: var(--gold-hi); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line);
+  font-size: 0.85rem; color: var(--text-faint); flex-wrap: wrap;
+}
+.footer-bottom .mono { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; }
+
+.reveal { opacity: 1; transform: none; }
+.js-anim .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.js-anim .reveal.in { opacity: 1; transform: none; }
+
+@media (max-width: 980px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 680px) {
+  .nav__links, .nav__cta { display: none; }
+  .nav-toggle { display: inline-flex; }
+  .nav.is-open .nav__links {
+    display: flex; flex-direction: column; gap: 4px;
+    position: absolute; left: 0; right: 0; top: 68px;
+    background: rgba(9,8,6,0.97); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line); padding: 16px var(--gutter) 24px;
+  }
+  .nav.is-open .nav__links a { padding: 12px 0; font-size: 1.05rem; border-bottom: 1px solid var(--line); }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="wordmark wordmark--gold" href="index.html" aria-label="Kord home">Kord<span class="dot">.</span></a>
+    <nav class="nav" aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="features.html">Features</a></li>
+        <li><a href="download.html">Download</a></li>
+        <li><a href="changelog.html">Changelog</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul>
+      <a class="btn btn--gold nav__cta" href="download.html#waitlist">Join the waitlist</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero container">
+    <p class="eyebrow">Privacy Policy</p>
+    <h1 class="display" style="max-width: 16ch;">Your music, <span class="gold-text">your business</span>.</h1>
+    <p class="lead">Kord is a local-first music player. We don't collect your data, track your listening, or sell anything to anyone.</p>
+  </section>
+
+  <section class="container section--tight">
+    <div class="prose reveal">
+
+      <p class="muted" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em;">Effective date: June 12, 2026</p>
+
+      <h2>What Kord does</h2>
+      <p>Kord is a native music player for iPhone and Mac. It plays audio files stored on your device or imported from cloud storage you connect. There is no Kord account, no streaming service, and no server that stores your library.</p>
+
+      <h2>Data we collect</h2>
+      <p>None. Kord does not collect, transmit, or store personal data on any server we operate. Your music library, playback history, EQ settings, and lyrics all stay on your device.</p>
+
+      <h2>Google Drive access</h2>
+      <p>Kord can optionally connect to your Google Drive so you can import audio files into your local library. When you choose to connect:</p>
+      <ul>
+        <li>Kord requests read-only access to your Google Drive files through Google's OAuth flow.</li>
+        <li>Your Google credentials are handled entirely by Google — Kord never sees or stores your Google password.</li>
+        <li>Kord only reads audio files you explicitly select for import. It does not scan, index, or access any other files in your Drive.</li>
+        <li>Imported files are copied to your device's local storage. Kord does not keep a persistent connection to your Drive.</li>
+        <li>You can disconnect Google Drive from Kord at any time in the app's settings, or by revoking access in your Google Account permissions.</li>
+      </ul>
+
+      <h2>Third-party services</h2>
+      <p>Kord may contact the following external services during normal use:</p>
+      <ul>
+        <li><strong>MusicBrainz</strong> — to look up album and artist metadata (credits, release dates). These are anonymous API requests with no user-identifying information.</li>
+        <li><strong>Last.fm</strong> — if you choose to enable scrobbling. This requires you to sign in to your own Last.fm account; Kord sends only the track name, artist, and album for each play.</li>
+        <li><strong>Google Drive</strong> — only if you connect it, as described above.</li>
+      </ul>
+
+      <h2>Analytics and tracking</h2>
+      <p>Kord does not include any analytics SDKs, ad trackers, or telemetry. We don't know how many songs you play, which screens you visit, or how often you open the app.</p>
+
+      <h2>Data stored on your device</h2>
+      <p>Kord stores your library database, playback settings, EQ presets, and cached metadata locally using Apple's standard frameworks (SwiftData, the file system, and the Keychain for OAuth tokens). This data is included in your device backups and is protected by your device passcode and encryption.</p>
+
+      <h2>Children's privacy</h2>
+      <p>Kord is not directed at children under 13. We do not knowingly collect personal information from children, because we do not collect personal information from anyone.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>If we change this policy, we'll update the effective date at the top and post the new version here. For material changes, we'll note it in the app's changelog.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about this policy? Email <a href="mailto:hello@kordaudio.app" style="color: var(--gold-hi);">hello@kordaudio.app</a>.</p>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="wordmark wordmark--gold">Kord<span class="dot">.</span></div>
+        <p>A native music player for people who care how it sounds. Local FLAC, bit-perfect, on iPhone and Mac.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="changelog.html">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">FAQ</a></li>
+          <li><a href="support.html#contact">Contact</a></li>
+          <li><a href="download.html#requirements">System requirements</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy policy</a></li>
+          <li><a href="terms.html">Terms of service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="mono">© <span data-year>2026</span> KORD AUDIO</span>
+      <span class="mono">MADE FOR THE QUIET BETWEEN NOTES</span>
+    </div>
+  </div>
+</footer>
+
+<script id="kord-js">
+(function () {
+  'use strict';
+  function initNav() {
+    var toggle = document.querySelector('.nav-toggle');
+    var nav = document.querySelector('.nav');
+    if (!toggle || !nav) return;
+    toggle.addEventListener('click', function () {
+      nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', nav.classList.contains('is-open'));
+    });
+  }
+  function initReveals() {
+    var els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
+    var root = document.documentElement;
+    if (!('IntersectionObserver' in window)) { root.classList.remove('js-anim'); return; }
+    root.classList.add('js-anim');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    var vh = window.innerHeight || 800;
+    var floor = Math.max(vh * 0.95, 1100);
+    els.forEach(function (e) {
+      if (e.getBoundingClientRect().top < floor) { e.classList.add('in'); }
+      else { io.observe(e); }
+    });
+    setTimeout(function () { els.forEach(function (e) { e.classList.add('in'); }); }, 700);
+  }
+  function initYear() {
+    document.querySelectorAll('[data-year]').forEach(function (el) {
+      el.textContent = new Date().getFullYear();
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    initNav();
+    initReveals();
+    initYear();
+  });
+})();
+</script>
+</body>
+</html>
