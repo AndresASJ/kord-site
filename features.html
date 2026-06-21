@@ -6,21 +6,21 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <title>Features — Kord</title>
-<meta name="description" content="Lossless playback, parametric EQ, line-by-line synced lyrics, and a smart auto-organized library. The four pillars of Kord." />
+<meta name="description" content="Lossless playback, parametric EQ, and a smart auto-organized library. The pillars of Kord." />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Features — Kord" />
-<meta property="og:description" content="Lossless playback, parametric EQ, synced lyrics, and a smart library." />
+<meta property="og:description" content="Lossless playback, parametric EQ, and a smart library." />
 <meta property="og:image" content="https://kordsound.com/assets/og.png" />
 <meta property="og:image:width" content="2400" />
 <meta property="og:image:height" content="1260" />
-<meta property="og:url" content="https://kordsound.com/features.html" />
+<meta property="og:url" content="https://kordsound.com/features" />
 <meta property="og:site_name" content="Kord" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://kordsound.com/assets/og.png" />
 <meta name="theme-color" content="#3A1E0F" />
 <link rel="icon" type="image/png" href="assets/kord-logo.png" />
 <link rel="apple-touch-icon" href="assets/kord-logo.png" />
-<link rel="canonical" href="https://kordsound.com/features.html" />
+<link rel="canonical" href="https://kordsound.com/features" />
 <style id="kord-css">
 /* ============================================================
    KORD — site stylesheet
@@ -435,10 +435,24 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
 .frow ul { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 12px; }
 .frow li { display: flex; gap: 12px; color: var(--text-soft); font-size: 0.98rem; }
 .frow li svg { width: 18px; height: 18px; stroke: var(--gold); flex-shrink: 0; margin-top: 3px; }
-.frow__visual {
-  aspect-ratio: 4/3; border-radius: var(--radius);
-  border: 1px solid var(--line-strong); overflow: hidden;
+.frow__visual { display: flex; justify-content: center; }
+/* Device frame for real app screenshots (mirrors the home-page iPhone mockup).
+   The screenshots already include the status bar + Dynamic Island, so the
+   frame only supplies the bezel, corners, and shadow. */
+.device {
+  width: min(230px, 62%);
+  border-radius: 34px;
+  padding: 8px;
+  background: linear-gradient(155deg, #2a211a, #0c0908 62%);
+  border: 1px solid rgba(197,138,58,0.22);
+  box-shadow:
+    0 1px 0 rgba(255,221,170,0.10) inset,
+    0 36px 70px -32px rgba(0,0,0,0.9),
+    0 0 60px -24px rgba(197,138,58,0.28);
+  transition: transform .6s var(--ease);
 }
+.device:hover { transform: translateY(-6px); }
+.device img { display: block; width: 100%; height: auto; border-radius: 27px; }
 
 /* ---------- CTA band ---------- */
 .cta-band {
@@ -621,15 +635,15 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="wordmark wordmark--gold" href="index.html" aria-label="Kord home">Kord<span class="dot">.</span></a>
+    <a class="wordmark wordmark--gold" href="/" aria-label="Kord home">Kord<span class="dot">.</span></a>
     <nav class="nav" aria-label="Primary">
       <ul class="nav__links">
-        <li><a href="features.html" class="is-active">Features</a></li>
-        <li><a href="download.html">Download</a></li>
-        <li><a href="changelog.html">Changelog</a></li>
-        <li><a href="support.html">Support</a></li>
+        <li><a href="features" class="is-active">Features</a></li>
+        <li><a href="download">Download</a></li>
+        <li><a href="changelog">Changelog</a></li>
+        <li><a href="support">Support</a></li>
       </ul>
-      <a class="btn btn--gold nav__cta" href="download.html#waitlist">Join the waitlist</a>
+      <a class="btn btn--gold nav__cta" href="download#waitlist">Join the waitlist</a>
     </nav>
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -639,7 +653,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
 
 <main>
   <section class="page-hero container" data-screen-label="Features / Hero">
-    <p class="eyebrow">Four pillars</p>
+    <p class="eyebrow">Three pillars</p>
     <h1 class="display" style="max-width: 16ch;">Built for the <span class="gold-text">listening</span>, not the looking.</h1>
     <p class="lead">Every feature in Kord exists to put you closer to the recording. No social feeds, no algorithmic radio — just a precise, beautiful way to play the music you already own.</p>
   </section>
@@ -658,7 +672,12 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg> Direct USB-C DAC output on iPhone, exclusive hardware access on Mac</li>
         </ul>
       </div>
-      <div class="frow__visual ph"><span>signal-path diagram</span></div>
+      <div class="frow__visual">
+        <div class="device">
+          <img src="assets/feature-playback.webp" width="921" height="2003"
+               alt="Kord's Now Playing screen on iPhone — 'Come Together' by The Beatles playing in lossless FLAC 24/96, with a waveform scrubber and signal-path badge" />
+        </div>
+      </div>
     </div>
 
     <!-- 02 EQ -->
@@ -673,28 +692,18 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg> Bypass to A/B instantly</li>
         </ul>
       </div>
-      <div class="frow__visual ph"><span>parametric EQ curve</span></div>
-    </div>
-
-    <!-- 03 Lyrics -->
-    <div class="frow reveal">
-      <div class="frow__text">
-        <span class="frow__num">03 — LYRICS</span>
-        <h2 class="h2">Synced, line by line</h2>
-        <p class="lead">Lyrics that track the music in real time. The current line lifts into focus and the rest settle back — a quiet, legible way to follow along without distraction.</p>
-        <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg> Time-synced highlighting</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg> Tap a line to seek</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg> Graceful fallback to static lyrics</li>
-        </ul>
+      <div class="frow__visual">
+        <div class="device">
+          <img src="assets/feature-eq.webp" width="921" height="2003"
+               alt="Kord's parametric EQ on iPhone — a five-band editor with low shelf, bell, and high shelf filters, each showing its frequency, plus a pre-amp control" />
+        </div>
       </div>
-      <div class="frow__visual ph"><span>synced-lyrics view</span></div>
     </div>
 
-    <!-- 04 Library -->
+    <!-- 03 Library -->
     <div class="frow reveal">
       <div class="frow__text">
-        <span class="frow__num">04 — LIBRARY</span>
+        <span class="frow__num">03 — LIBRARY</span>
         <h2 class="h2">A library that organizes itself</h2>
         <p class="lead">Point Kord at your music folder and it reads the tags, groups albums and artists, finds artwork, and keeps everything tidy — so you spend your time listening, not filing.</p>
         <ul>
@@ -703,7 +712,12 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg> Browse by artist, album, or decade</li>
         </ul>
       </div>
-      <div class="frow__visual ph"><span>library grid</span></div>
+      <div class="frow__visual">
+        <div class="device">
+          <img src="assets/feature-library.webp" width="921" height="2003"
+               alt="Kord's library on iPhone — an auto-organized Home view with an artist spotlight, recently added albums, and a hi-res shelf, all showing fetched artwork" />
+        </div>
+      </div>
     </div>
   </section>
 
@@ -738,24 +752,24 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
       <div class="footer-col">
         <h4>Product</h4>
         <ul>
-          <li><a href="features.html">Features</a></li>
-          <li><a href="download.html">Download</a></li>
-          <li><a href="changelog.html">Changelog</a></li>
+          <li><a href="features">Features</a></li>
+          <li><a href="download">Download</a></li>
+          <li><a href="changelog">Changelog</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Support</h4>
         <ul>
-          <li><a href="support.html">FAQ</a></li>
-          <li><a href="support.html#contact">Contact</a></li>
-          <li><a href="download.html">System requirements</a></li>
+          <li><a href="support">FAQ</a></li>
+          <li><a href="support#contact">Contact</a></li>
+          <li><a href="download">System requirements</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>
         <ul>
-          <li><a href="privacy.html">Privacy policy</a></li>
-          <li><a href="terms.html">Terms of service</a></li>
+          <li><a href="privacy">Privacy policy</a></li>
+          <li><a href="terms">Terms of service</a></li>
         </ul>
       </div>
     </div>
