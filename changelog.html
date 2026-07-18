@@ -641,7 +641,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
   <section class="page-hero container" data-screen-label="Changelog / Hero">
     <p class="eyebrow">Release notes</p>
     <h1 class="display" style="max-width: 14ch;">Every version, <span class="gold-text">documented</span>.</h1>
-    <p class="lead">Kord is built in the open-ish. Each release gets a note here — what changed, what's new, and what we're still chasing. New entries are just Markdown files in a content collection.</p>
+    <p class="lead">Kord is built in the open-ish. Each release gets a note here: what changed, what's new, and what I'm still chasing.</p>
   </section>
 
   <section class="container section--tight" data-screen-label="Changelog / List">
@@ -760,23 +760,38 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
     setTimeout(function () { els.forEach(function (e) { e.classList.add('in'); }); }, 700);
   }
 
-  /* --- Waitlist form (placeholder handler) ---
-     TODO: wire to a real endpoint. Two easy options:
-       1. Netlify Forms — add `data-netlify="true"` + a hidden `form-name` field
-          to the <form> and remove the e.preventDefault() below.
-       2. Formspree — set the form's action to https://formspree.io/f/XXXX
-          and method="POST", then remove preventDefault().
-     For now we just simulate success client-side.                          */
+  /* --- Waitlist form (Formspree) ---
+     FORMSPREE_ID is the id at the end of your form's endpoint at
+     formspree.io (https://formspree.io/f/<id>). Until it's set,
+     submissions show a visible error instead of pretending to succeed. */
+  var FORMSPREE_ID = 'FORMSPREE_ID_HERE';
   function initWaitlist() {
     document.querySelectorAll('.waitlist-form').forEach(function (form) {
       form.addEventListener('submit', function (e) {
-        e.preventDefault(); // remove when wiring a real backend
+        e.preventDefault();
         var input = form.querySelector('input[type="email"]');
         if (input && !input.checkValidity()) { input.reportValidity(); return; }
-        form.classList.add('is-done');
-        var ok = form.querySelector('.waitlist-success');
-        if (ok) ok.classList.add('is-shown');
-        // console.log('waitlist signup →', input ? input.value : '(no email)');
+        var btn = form.querySelector('button[type="submit"]');
+        if (btn) { btn.dataset.label = btn.textContent; btn.disabled = true; btn.textContent = 'Joining…'; }
+        fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: input ? input.value : '' })
+        }).then(function (res) {
+          if (!res.ok) throw new Error('formspree ' + res.status);
+          form.classList.add('is-done');
+          var ok = form.querySelector('.waitlist-success');
+          if (ok) ok.classList.add('is-shown');
+        }).catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label; }
+          var note = form.querySelector('.waitlist-note');
+          if (!note) {
+            note = document.createElement('p');
+            note.className = 'waitlist-note';
+            form.appendChild(note);
+          }
+          note.textContent = "Couldn't reach the list just now. Please try again in a minute.";
+        });
       });
     });
   }

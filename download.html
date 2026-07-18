@@ -641,7 +641,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
   <section class="page-hero container" data-screen-label="Download / Hero">
     <span class="coming-soon-badge"><span class="pulse" style="width:7px;height:7px;border-radius:50%;background:var(--gold-hi);display:inline-block;"></span> Coming soon</span>
     <h1 class="display" style="max-width: 15ch;">Coming soon to <span class="gold-text">iPhone and Mac</span>.</h1>
-    <p class="lead">Kord isn't quite ready to ship — we're polishing the signal path and the last few corners of the UI. There's no download button yet, but there is a front-of-the-line.</p>
+    <p class="lead">Kord isn't quite ready to ship; I'm still polishing the signal path and the last few corners of the UI. There's no download button yet, but there is a front of the line.</p>
 
     <div class="platform-pills" style="margin-top:30px;">
       <div class="platform-pill">
@@ -690,7 +690,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
       <div class="cta-band reveal">
         <p class="eyebrow" style="justify-content:center;">No download yet — but you can be first</p>
         <h2 class="h2">Join the waitlist</h2>
-        <p class="lead">Drop your email and we'll send you a download link the day Kord goes live. That's the only thing this list is for.</p>
+        <p class="lead">Drop your email and I'll send you a download link the day Kord goes live. That's the only thing this list is for.</p>
         <form class="waitlist-form" novalidate>
           <div class="waitlist">
             <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
@@ -698,7 +698,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
           </div>
           <div class="waitlist-success" role="status">
             <span class="check-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
-            <span>You're on the list. We'll email your download link at launch.</span>
+            <span>You're on the list. I'll email your download link at launch.</span>
           </div>
           <p class="waitlist-note">No spam. One email when it's ready to play.</p>
         </form>
@@ -786,23 +786,38 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
     setTimeout(function () { els.forEach(function (e) { e.classList.add('in'); }); }, 700);
   }
 
-  /* --- Waitlist form (placeholder handler) ---
-     TODO: wire to a real endpoint. Two easy options:
-       1. Netlify Forms — add `data-netlify="true"` + a hidden `form-name` field
-          to the <form> and remove the e.preventDefault() below.
-       2. Formspree — set the form's action to https://formspree.io/f/XXXX
-          and method="POST", then remove preventDefault().
-     For now we just simulate success client-side.                          */
+  /* --- Waitlist form (Formspree) ---
+     FORMSPREE_ID is the id at the end of your form's endpoint at
+     formspree.io (https://formspree.io/f/<id>). Until it's set,
+     submissions show a visible error instead of pretending to succeed. */
+  var FORMSPREE_ID = 'FORMSPREE_ID_HERE';
   function initWaitlist() {
     document.querySelectorAll('.waitlist-form').forEach(function (form) {
       form.addEventListener('submit', function (e) {
-        e.preventDefault(); // remove when wiring a real backend
+        e.preventDefault();
         var input = form.querySelector('input[type="email"]');
         if (input && !input.checkValidity()) { input.reportValidity(); return; }
-        form.classList.add('is-done');
-        var ok = form.querySelector('.waitlist-success');
-        if (ok) ok.classList.add('is-shown');
-        // console.log('waitlist signup →', input ? input.value : '(no email)');
+        var btn = form.querySelector('button[type="submit"]');
+        if (btn) { btn.dataset.label = btn.textContent; btn.disabled = true; btn.textContent = 'Joining…'; }
+        fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: input ? input.value : '' })
+        }).then(function (res) {
+          if (!res.ok) throw new Error('formspree ' + res.status);
+          form.classList.add('is-done');
+          var ok = form.querySelector('.waitlist-success');
+          if (ok) ok.classList.add('is-shown');
+        }).catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label; }
+          var note = form.querySelector('.waitlist-note');
+          if (!note) {
+            note = document.createElement('p');
+            note.className = 'waitlist-note';
+            form.appendChild(note);
+          }
+          note.textContent = "Couldn't reach the list just now. Please try again in a minute.";
+        });
       });
     });
   }

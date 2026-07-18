@@ -685,7 +685,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
       <div class="hero__copy">
         <p class="eyebrow">Lossless music player · iPhone &amp; Mac</p>
         <h1 class="display">Bit-perfect FLAC, <span class="gold-text">exactly as mastered</span>.</h1>
-        <p class="lead">Kord plays your local FLAC library with true lossless output — no resampling, no coloration, nothing between you and the master. Native Swift, built for the iPhone in your pocket and the rig on your desk.</p>
+        <p class="lead">Kord plays your local FLAC library exactly as it was mastered — no resampling, no hidden mixer between the file and your DAC. Native Swift, built for the iPhone in your pocket and the rig on your desk.</p>
 
         <div id="waitlist">
           <!-- Reusable waitlist component -->
@@ -696,7 +696,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
             </div>
             <div class="waitlist-success" role="status">
               <span class="check-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
-              <span>You're on the list. We'll email you the moment Kord ships.</span>
+              <span>You're on the list. I'll email you the moment Kord ships.</span>
             </div>
             <p class="waitlist-note">No spam. One email when it's ready to play.</p>
           </form>
@@ -728,7 +728,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
     <div class="container">
       <div class="reveal" style="max-width: 640px; margin-bottom: 44px;">
         <p class="eyebrow">What's inside</p>
-        <h2 class="h2">Everything an audiophile actually wants — <em class="serif-italic">and nothing they don't</em>.</h2>
+        <h2 class="h2">Made for audio gearheads, <em class="serif-italic">with an Apple philosophy</em>.</h2>
       </div>
 
       <div class="grid-features">
@@ -737,7 +737,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
             <svg viewBox="0 0 24 24"><path d="M3 12h3l2-7 4 18 3-11 2 4h4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <h3>Lossless Playback</h3>
-          <p>Your FLAC files, decoded bit-for-bit and sent to your DAC untouched. No resampling, no hidden EQ, no loudness tricks.</p>
+          <p>Your FLAC files, decoded bit-for-bit and sent to your DAC untouched. No resampling, no loudness tricks.</p>
           <span class="fcard__tag">Bit-perfect signal path</span>
         </article>
 
@@ -755,7 +755,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
             <svg viewBox="0 0 24 24"><path d="M4 7h10M4 12h7M4 17h9" stroke-linecap="round"/><path d="M18 5v11" stroke-linecap="round"/><circle cx="18" cy="18" r="2.4" fill="none"/></svg>
           </div>
           <h3>Synced Lyrics</h3>
-          <p>Line-by-line lyrics that move in time with the music — highlighted as you listen, never a beat behind.</p>
+          <p>Line-by-line lyrics that move in time with the music, highlighted as you listen and never a beat behind.</p>
           <span class="fcard__tag">Line-by-line, in time</span>
         </article>
 
@@ -764,7 +764,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
             <svg viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="7" rx="1.5" fill="none"/><rect x="14" y="4" width="7" height="7" rx="1.5" fill="none"/><rect x="3" y="15" width="7" height="5" rx="1.5" fill="none"/><rect x="14" y="15" width="7" height="5" rx="1.5" fill="none"/></svg>
           </div>
           <h3>Smart Library</h3>
-          <p>Point Kord at a folder and it organizes everything — albums, artists, artwork, and metadata sorted automatically.</p>
+          <p>Point Kord at a folder and it reads the tags, groups your albums and artists, and fetches the artwork on its own.</p>
           <span class="fcard__tag">Organized automatically</span>
         </article>
       </div>
@@ -782,8 +782,8 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
     <div class="container">
       <div class="cta-band reveal">
         <p class="eyebrow" style="justify-content:center;">Be first in line</p>
-        <h2 class="h2">Hear it the way it was made.</h2>
-        <p class="lead">Kord is in private development. Join the waitlist and we'll send you an invite the moment it's ready for your ears.</p>
+        <h2 class="h2">Songs you know have more to give.</h2>
+        <p class="lead">Kord is in private development. Join the waitlist and I'll send you an invite the moment it's ready for your ears.</p>
         <form class="waitlist-form" novalidate>
           <div class="waitlist">
             <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
@@ -791,7 +791,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
           </div>
           <div class="waitlist-success" role="status">
             <span class="check-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
-            <span>You're on the list. We'll be in touch.</span>
+            <span>You're on the list. I'll be in touch.</span>
           </div>
         </form>
       </div>
@@ -880,23 +880,38 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
     setTimeout(function () { els.forEach(function (e) { e.classList.add('in'); }); }, 700);
   }
 
-  /* --- Waitlist form (placeholder handler) ---
-     TODO: wire to a real endpoint. Two easy options:
-       1. Netlify Forms — add `data-netlify="true"` + a hidden `form-name` field
-          to the <form> and remove the e.preventDefault() below.
-       2. Formspree — set the form's action to https://formspree.io/f/XXXX
-          and method="POST", then remove preventDefault().
-     For now we just simulate success client-side.                          */
+  /* --- Waitlist form (Formspree) ---
+     FORMSPREE_ID is the id at the end of your form's endpoint at
+     formspree.io (https://formspree.io/f/<id>). Until it's set,
+     submissions show a visible error instead of pretending to succeed. */
+  var FORMSPREE_ID = 'FORMSPREE_ID_HERE';
   function initWaitlist() {
     document.querySelectorAll('.waitlist-form').forEach(function (form) {
       form.addEventListener('submit', function (e) {
-        e.preventDefault(); // remove when wiring a real backend
+        e.preventDefault();
         var input = form.querySelector('input[type="email"]');
         if (input && !input.checkValidity()) { input.reportValidity(); return; }
-        form.classList.add('is-done');
-        var ok = form.querySelector('.waitlist-success');
-        if (ok) ok.classList.add('is-shown');
-        // console.log('waitlist signup →', input ? input.value : '(no email)');
+        var btn = form.querySelector('button[type="submit"]');
+        if (btn) { btn.dataset.label = btn.textContent; btn.disabled = true; btn.textContent = 'Joining…'; }
+        fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: input ? input.value : '' })
+        }).then(function (res) {
+          if (!res.ok) throw new Error('formspree ' + res.status);
+          form.classList.add('is-done');
+          var ok = form.querySelector('.waitlist-success');
+          if (ok) ok.classList.add('is-shown');
+        }).catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label; }
+          var note = form.querySelector('.waitlist-note');
+          if (!note) {
+            note = document.createElement('p');
+            note.className = 'waitlist-note';
+            form.appendChild(note);
+          }
+          note.textContent = "Couldn't reach the list just now. Please try again in a minute.";
+        });
       });
     });
   }

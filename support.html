@@ -641,7 +641,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
   <section class="page-hero container" data-screen-label="Support / Hero">
     <p class="eyebrow">Support</p>
     <h1 class="display" style="max-width: 16ch;">Questions, <span class="gold-text">answered</span>.</h1>
-    <p class="lead">A few things people ask before they listen. If your question isn't here, we're a short email away.</p>
+    <p class="lead">A few things people ask before they listen. If your question isn't here, I'm a short email away.</p>
   </section>
 
   <section class="container section--tight" data-screen-label="Support / FAQ">
@@ -691,7 +691,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
           <svg class="chev" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a__inner">
-          <p>Kord is still in private development, so there's no public build yet. The best way to be first is the waitlist — we'll email you a download link the day it launches.</p>
+          <p>Kord is still in private development, so there's no public build yet. The best way to be first is the waitlist — I'll email you a download link the day it launches.</p>
         </div></div>
       </div>
 
@@ -703,8 +703,8 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
     <div class="container">
       <div class="cta-band reveal">
         <p class="eyebrow" style="justify-content:center;">Still stuck?</p>
-        <h2 class="h2">Talk to a human.</h2>
-        <p class="lead">We read everything. Questions, bug reports, feature wishes, or just to say your DAC sounds great — send it over.</p>
+        <h2 class="h2">Talk to the person who built it.</h2>
+        <p class="lead">I read everything. Questions, bug reports, feature wishes, or just to say your DAC sounds great — send it over.</p>
         <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:6px;">
           <a class="btn btn--gold" href="mailto:support@kordsound.com">support@kordsound.com</a>
           <a class="btn btn--ghost" href="download#waitlist">Join the waitlist</a>
@@ -793,23 +793,38 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
     setTimeout(function () { els.forEach(function (e) { e.classList.add('in'); }); }, 700);
   }
 
-  /* --- Waitlist form (placeholder handler) ---
-     TODO: wire to a real endpoint. Two easy options:
-       1. Netlify Forms — add `data-netlify="true"` + a hidden `form-name` field
-          to the <form> and remove the e.preventDefault() below.
-       2. Formspree — set the form's action to https://formspree.io/f/XXXX
-          and method="POST", then remove preventDefault().
-     For now we just simulate success client-side.                          */
+  /* --- Waitlist form (Formspree) ---
+     FORMSPREE_ID is the id at the end of your form's endpoint at
+     formspree.io (https://formspree.io/f/<id>). Until it's set,
+     submissions show a visible error instead of pretending to succeed. */
+  var FORMSPREE_ID = 'FORMSPREE_ID_HERE';
   function initWaitlist() {
     document.querySelectorAll('.waitlist-form').forEach(function (form) {
       form.addEventListener('submit', function (e) {
-        e.preventDefault(); // remove when wiring a real backend
+        e.preventDefault();
         var input = form.querySelector('input[type="email"]');
         if (input && !input.checkValidity()) { input.reportValidity(); return; }
-        form.classList.add('is-done');
-        var ok = form.querySelector('.waitlist-success');
-        if (ok) ok.classList.add('is-shown');
-        // console.log('waitlist signup →', input ? input.value : '(no email)');
+        var btn = form.querySelector('button[type="submit"]');
+        if (btn) { btn.dataset.label = btn.textContent; btn.disabled = true; btn.textContent = 'Joining…'; }
+        fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: input ? input.value : '' })
+        }).then(function (res) {
+          if (!res.ok) throw new Error('formspree ' + res.status);
+          form.classList.add('is-done');
+          var ok = form.querySelector('.waitlist-success');
+          if (ok) ok.classList.add('is-shown');
+        }).catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label; }
+          var note = form.querySelector('.waitlist-note');
+          if (!note) {
+            note = document.createElement('p');
+            note.className = 'waitlist-note';
+            form.appendChild(note);
+          }
+          note.textContent = "Couldn't reach the list just now. Please try again in a minute.";
+        });
       });
     });
   }

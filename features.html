@@ -654,8 +654,8 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
 <main>
   <section class="page-hero container" data-screen-label="Features / Hero">
     <p class="eyebrow">Three pillars</p>
-    <h1 class="display" style="max-width: 16ch;">Built for the <span class="gold-text">listening</span>, not the looking.</h1>
-    <p class="lead">Every feature in Kord exists to put you closer to the recording. No social feeds, no algorithmic radio — just a precise, beautiful way to play the music you already own.</p>
+    <h1 class="display" style="max-width: 16ch;">Built to put you <span class="gold-text">closer to the master</span>.</h1>
+    <p class="lead">There's no social feed or algorithmic radio in Kord. It plays the music you already own, and every feature has to earn its place by getting you closer to the recording.</p>
   </section>
 
   <section class="container section--tight" data-screen-label="Features / Detail">
@@ -705,7 +705,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
       <div class="frow__text">
         <span class="frow__num">03 — LIBRARY</span>
         <h2 class="h2">A library that organizes itself</h2>
-        <p class="lead">Point Kord at your music folder and it reads the tags, groups albums and artists, finds artwork, and keeps everything tidy — so you spend your time listening, not filing.</p>
+        <p class="lead">Point Kord at your music folder and it reads the tags, groups albums and artists, finds artwork, and keeps everything tidy. By the time you press play, the filing is already done.</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg> Automatic album &amp; artist grouping</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg> Artwork fetched and embedded</li>
@@ -726,7 +726,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
       <div class="cta-band reveal">
         <p class="eyebrow" style="justify-content:center;">Be first in line</p>
         <h2 class="h2">Ready when your ears are.</h2>
-        <p class="lead">Kord is in private development. Join the waitlist for an invite the moment it ships.</p>
+        <p class="lead">Kord is in private development. Join the waitlist and I'll send an invite the moment it ships.</p>
         <form class="waitlist-form" novalidate>
           <div class="waitlist">
             <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
@@ -734,7 +734,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
           </div>
           <div class="waitlist-success" role="status">
             <span class="check-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
-            <span>You're on the list. We'll be in touch.</span>
+            <span>You're on the list. I'll be in touch.</span>
           </div>
         </form>
       </div>
@@ -821,23 +821,38 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
     setTimeout(function () { els.forEach(function (e) { e.classList.add('in'); }); }, 700);
   }
 
-  /* --- Waitlist form (placeholder handler) ---
-     TODO: wire to a real endpoint. Two easy options:
-       1. Netlify Forms — add `data-netlify="true"` + a hidden `form-name` field
-          to the <form> and remove the e.preventDefault() below.
-       2. Formspree — set the form's action to https://formspree.io/f/XXXX
-          and method="POST", then remove preventDefault().
-     For now we just simulate success client-side.                          */
+  /* --- Waitlist form (Formspree) ---
+     FORMSPREE_ID is the id at the end of your form's endpoint at
+     formspree.io (https://formspree.io/f/<id>). Until it's set,
+     submissions show a visible error instead of pretending to succeed. */
+  var FORMSPREE_ID = 'FORMSPREE_ID_HERE';
   function initWaitlist() {
     document.querySelectorAll('.waitlist-form').forEach(function (form) {
       form.addEventListener('submit', function (e) {
-        e.preventDefault(); // remove when wiring a real backend
+        e.preventDefault();
         var input = form.querySelector('input[type="email"]');
         if (input && !input.checkValidity()) { input.reportValidity(); return; }
-        form.classList.add('is-done');
-        var ok = form.querySelector('.waitlist-success');
-        if (ok) ok.classList.add('is-shown');
-        // console.log('waitlist signup →', input ? input.value : '(no email)');
+        var btn = form.querySelector('button[type="submit"]');
+        if (btn) { btn.dataset.label = btn.textContent; btn.disabled = true; btn.textContent = 'Joining…'; }
+        fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: input ? input.value : '' })
+        }).then(function (res) {
+          if (!res.ok) throw new Error('formspree ' + res.status);
+          form.classList.add('is-done');
+          var ok = form.querySelector('.waitlist-success');
+          if (ok) ok.classList.add('is-shown');
+        }).catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label; }
+          var note = form.querySelector('.waitlist-note');
+          if (!note) {
+            note = document.createElement('p');
+            note.className = 'waitlist-note';
+            form.appendChild(note);
+          }
+          note.textContent = "Couldn't reach the list just now. Please try again in a minute.";
+        });
       });
     });
   }
