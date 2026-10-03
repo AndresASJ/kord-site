@@ -1,6 +1,6 @@
 # Kord Site
 
-Marketing and download site for [Kord](https://kordsound.com), a native bit-perfect FLAC player for iPhone and Mac.
+Marketing and download site for [Kord](https://kordsound.com), a FLAC player for iPhone.
 
 **Live at [kordsound.com](https://kordsound.com)**
 
@@ -16,6 +16,7 @@ The public-facing site for Kord — features, download links, changelogs, suppor
 - **changelog** — release history
 - **support** — help and contact
 - **privacy** / **terms** — legal
+- **attribution** — credits for the Creative Commons music shown in the App Store screenshots
 
 ## Running locally
 
@@ -33,6 +34,6 @@ Pushes to `main` deploy automatically via GitHub Pages. The custom domain is con
 
 ## About Kord
 
-Kord decodes FLAC bit-for-bit, switches the hardware sample rate to match each file, and hands samples straight to the DAC — direct USB-C output on iPhone, exclusive CoreAudio hardware access on Mac. No resampler, no system mixer, no hidden EQ in the signal path.
+Kord plays FLAC on iPhone (iOS 18 or later) from Apple Files, individually selected Google Drive files, or your own Jellyfin server. It's free at launch and has no bundled catalog. Output depends on the iPhone, audio route, and settings.
 
 The app source is in a private repository. Bugs and feature requests go to the [public tracker](https://github.com/AndresASJ/FlacPlayer-Feedback).
