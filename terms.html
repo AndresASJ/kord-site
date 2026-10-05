@@ -342,7 +342,7 @@ h1, h2, h3 {
         <li><a href="changelog">Changelog</a></li>
         <li><a href="support">Support</a></li>
       </ul>
-      <a class="btn btn--gold nav__cta" href="download#waitlist">Join the waitlist</a>
+      <a class="btn btn--gold nav__cta" href="download">Coming soon on iPhone</a>
     </nav>
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -372,13 +372,13 @@ h1, h2, h3 {
       <p>You are responsible for the audio files you load into Kord. The app does not verify whether you have the right to play a given file. By using Kord, you represent that you have the legal right to play the content in your library.</p>
 
       <h2>Google Drive</h2>
-      <p>If you connect your Google Drive to import files, you authorize Kord to access your Drive in read-only mode to retrieve the files you select. Kord's use of Google APIs complies with the <a href="https://developers.google.com/terms/api-services-user-data-policy" style="color: var(--gold-hi);">Google API Services User Data Policy</a>, including the Limited Use requirements. See our <a href="privacy" style="color: var(--gold-hi);">privacy policy</a> for details on what data is accessed and how it's handled.</p>
+      <p>If you connect Google Drive, Kord uses the drive.file permission to access only the individual files you select through Google's Picker. It reads those files to import and play them; it does not request access to your whole Drive or edit your files. Kord's use of Google APIs complies with the <a href="https://developers.google.com/terms/api-services-user-data-policy" style="color: var(--gold-hi);">Google API Services User Data Policy</a>, including the Limited Use requirements. See our <a href="privacy" style="color: var(--gold-hi);">privacy policy</a> for details on what data is accessed and how it's handled.</p>
 
       <h2>Acceptable use</h2>
       <p>Don't use Kord to:</p>
       <ul>
         <li>Distribute copyrighted material you don't have the rights to.</li>
-        <li>Reverse-engineer, decompile, or extract the source code of the app.</li>
+        <li>Reverse-engineer, decompile, or extract the source code of the app, except as permitted by applicable law or by the open-source licenses of included third-party components, listed in the app under Settings &gt; Third-Party Notices.</li>
         <li>Use the app in any way that violates applicable law.</li>
       </ul>
 
@@ -433,118 +433,13 @@ h1, h2, h3 {
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="mono">© <span data-year>2026</span> KORD AUDIO</span>
+      <span class="mono">© 2026 Andres Jimenez</span>
       <span class="mono">MADE FOR THE QUIET BETWEEN NOTES</span>
+      <p>Google Drive is a trademark of Google LLC. Jellyfin is a trademark of the Jellyfin project. Kord is not affiliated with or endorsed by Google or Jellyfin.</p>
     </div>
   </div>
 </footer>
 
-<script id="kord-js">
-/* KORD — site interactions (vanilla, minimal) */
-(function () {
-  'use strict';
-
-  /* --- Mobile nav --- */
-  function initNav() {
-    var toggle = document.querySelector('.nav-toggle');
-    var nav = document.querySelector('.nav');
-    if (!toggle || !nav) return;
-    toggle.addEventListener('click', function () {
-      nav.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', nav.classList.contains('is-open'));
-    });
-  }
-
-  /* --- Scroll reveals --- */
-  function initReveals() {
-    var els = document.querySelectorAll('.reveal');
-    if (!els.length) return;
-    var root = document.documentElement;
-    if (!('IntersectionObserver' in window)) { root.classList.remove('js-anim'); return; }
-    // Enable animation, but reveal anything already on-screen in the SAME tick (no flash).
-    root.classList.add('js-anim');
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-    var vh = window.innerHeight || 800;
-    // Reveal anything near the top immediately (absolute floor so a short
-    // capture viewport never leaves the hero hidden); observe the rest.
-    var floor = Math.max(vh * 0.95, 1100);
-    els.forEach(function (e) {
-      if (e.getBoundingClientRect().top < floor) { e.classList.add('in'); }
-      else { io.observe(e); }
-    });
-    // Safety net: never let content stay hidden.
-    setTimeout(function () { els.forEach(function (e) { e.classList.add('in'); }); }, 700);
-  }
-
-  /* --- Waitlist form (Formspree) ---
-     FORMSPREE_ID is the id at the end of your form's endpoint at
-     formspree.io (https://formspree.io/f/<id>). Until it's set,
-     submissions show a visible error instead of pretending to succeed. */
-  var FORMSPREE_ID = 'FORMSPREE_ID_HERE';
-  function initWaitlist() {
-    document.querySelectorAll('.waitlist-form').forEach(function (form) {
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var input = form.querySelector('input[type="email"]');
-        if (input && !input.checkValidity()) { input.reportValidity(); return; }
-        var btn = form.querySelector('button[type="submit"]');
-        if (btn) { btn.dataset.label = btn.textContent; btn.disabled = true; btn.textContent = 'Joining…'; }
-        fetch('https://formspree.io/f/' + FORMSPREE_ID, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: input ? input.value : '' })
-        }).then(function (res) {
-          if (!res.ok) throw new Error('formspree ' + res.status);
-          form.classList.add('is-done');
-          var ok = form.querySelector('.waitlist-success');
-          if (ok) ok.classList.add('is-shown');
-        }).catch(function () {
-          if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label; }
-          var note = form.querySelector('.waitlist-note');
-          if (!note) {
-            note = document.createElement('p');
-            note.className = 'waitlist-note';
-            form.appendChild(note);
-          }
-          note.textContent = "Couldn't reach the list just now. Please try again in a minute.";
-        });
-      });
-    });
-  }
-
-  /* --- FAQ accordion --- */
-  function initFaq() {
-    document.querySelectorAll('.faq-item').forEach(function (item) {
-      var q = item.querySelector('.faq-q');
-      var a = item.querySelector('.faq-a');
-      if (!q || !a) return;
-      q.addEventListener('click', function () {
-        var open = item.classList.toggle('open');
-        q.setAttribute('aria-expanded', open);
-        a.style.maxHeight = open ? a.scrollHeight + 'px' : 0;
-      });
-    });
-  }
-
-  function initYear() {
-    document.querySelectorAll('[data-year]').forEach(function (el) {
-      el.textContent = new Date().getFullYear();
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-    initNav();
-    initReveals();
-    initWaitlist();
-    initFaq();
-    initYear();
-  });
-})();
-
-</script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

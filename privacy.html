@@ -342,7 +342,7 @@ h1, h2, h3 {
         <li><a href="changelog">Changelog</a></li>
         <li><a href="support">Support</a></li>
       </ul>
-      <a class="btn btn--gold nav__cta" href="download#waitlist">Join the waitlist</a>
+      <a class="btn btn--gold nav__cta" href="download">Coming soon on iPhone</a>
     </nav>
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -360,13 +360,13 @@ h1, h2, h3 {
   <section class="container section--tight">
     <div class="prose reveal">
 
-      <p class="muted" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em;">Effective date: September 12, 2026</p>
+      <p class="muted" style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em;">Effective date: October 5, 2026</p>
 
       <h2>What Kord does</h2>
       <p>Kord is a native music player for iPhone. It plays audio files stored on your device or imported from cloud storage you connect. There is no Kord account, no streaming service, and no server that stores your library.</p>
 
       <h2>Data we collect</h2>
-      <p>Kord has no Kord account, advertising, or third-party analytics SDK. Kord stores your library, playback preferences, history, artwork, lyrics, and settings on your device. When you connect a service, that service receives the information needed to authenticate, import, stream, or provide the lookup you requested. Providers control their own logs and retention.</p>
+      <p>Kord has no Kord account, advertising, or third-party analytics SDK. Kord stores your library, playback preferences, history, artwork, lyrics, and settings on your device. Google Drive and a Jellyfin server you choose receive requests needed for their connections. Artwork and metadata lookups may also run automatically when you import music or open your library, artist details, or Now Playing; external providers receive the requested song and artist information and ordinary connection information, including your IP address, and may keep request logs under their own policies. Kord does not send your complete audio library to the developer or metadata providers.</p>
 
       <h2>Google user data</h2>
       <p>Kord can optionally connect to your Google Drive so you can import audio files into your local library. Connecting Google Drive is optional, and Kord works without it. When you choose to connect, Kord uses Google's Picker and requests access to the individual files you select:</p>
@@ -380,9 +380,9 @@ h1, h2, h3 {
       <p>Kord uses selected-file metadata and audio to build your local library and play your music. It does not edit or delete Drive content, and it does not send your Google credentials, Drive file contents, file IDs, folder listings, or account email to metadata providers. Kord's use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" style="color: var(--gold-hi);">Google API Services User Data Policy</a>, including its Limited Use requirements.</p>
 
       <h3>How Kord retains and deletes Google user data</h3>
-      <p>Kord has no server that stores your Google Drive files, Drive account data, or library. Selected-file identity, authorized file IDs, tokens, library entries, and cached audio remain on your device for the purposes described above. Local data remains until you remove it or it is evicted by Kord's cache rules. Deleting the app removes its app-container data, but Keychain credentials may survive depending on the operating system. Apple Developer Technical Support documents this behavior in its <a href="https://developer.apple.com/forums/thread/36442" style="color: var(--gold-hi);">Keychain guidance</a>. Sign out of Google Drive before deleting Kord if you want the stored OAuth credentials removed immediately.</p>
+      <p>Kord has no server that stores your Google Drive files, Drive account data, or library. Kord stores your Google account email, permission identifier, authorized file IDs, library entries, and downloaded or cached audio on your device for the purposes described above. It stores the refresh token in Keychain and holds a short-lived access token in memory while connected. Local data remains until you remove it or it is evicted by Kord's cache rules. Deleting the app removes its app-container data, but Keychain credentials may survive depending on the operating system. Apple Developer Technical Support documents this behavior in its <a href="https://developer.apple.com/forums/thread/36442" style="color: var(--gold-hi);">Keychain guidance</a>. Sign out of Google Drive before deleting Kord if you want the stored OAuth credentials removed immediately.</p>
       <ul>
-        <li><strong>OAuth tokens</strong> — the access and refresh tokens Google issues are stored in your device's Keychain so you stay signed in between sessions. Kord removes them when you sign out or disconnect Google Drive in Kord's settings. Revoking Kord's access from your Google Account prevents future API access; Kord removes the local tokens when it next discovers that the session has expired.</li>
+        <li><strong>OAuth tokens</strong> — Kord stores Google's refresh token in your device's Keychain to stay signed in between sessions; it holds the short-lived access token in memory. Kord removes the local credentials when you sign out or disconnect Google Drive in Kord's settings. Revoking Kord's access from your Google Account prevents future API access; Kord removes the local credentials when it next discovers that the session has expired.</li>
         <li><strong>Library entries</strong> — Kord saves the selected file IDs and music metadata in its local library database until you remove the tracks or erase Kord's local app data. Signing out removes the Google credentials, but does not automatically delete library entries already imported.</li>
         <li><strong>Cached audio</strong> — Kord may download a Drive track into a private cache folder on your device for playback. You can clear that cache in Google Drive settings.</li>
         <li><strong>No background browsing</strong> — Kord does not keep a background connection to Drive or retain unselected folder listings after the selection flow.</li>
@@ -392,19 +392,18 @@ h1, h2, h3 {
       <h2>Third-party services</h2>
       <p>Kord may contact the following external services during normal use:</p>
       <ul>
-        <li><strong>Jellyfin</strong> — if you connect your own server, Kord sends your username and password to that server for authentication, stores the returned access token in Keychain, and requests library metadata, artwork, and original FLAC audio. The server operator controls its logs and retention.</li>
-        <li><strong>Artwork and metadata providers</strong> — depending on your settings and the feature you use, Kord may send artist, album, track, or music identifiers to Apple Music, MusicBrainz, Cover Art Archive, Wikimedia Commons, ListenBrainz, or a Fanart.tv endpoint configured with your own API key. Results may be cached on your device.</li>
+        <li><strong>Jellyfin</strong> — if you connect a server you choose, Kord sends the username and password you enter to that server for authentication, stores its returned access token in Keychain, and requests library metadata, artwork, and original FLAC audio. Authentication and subsequent requests include a random Kord-generated device identifier, the app version, an "iPhone" client label, and (after sign-in) the access token; the catalog request also includes your server account ID. Kord stores the identifier in Keychain, so it may persist after uninstalling the app. The server operator controls request logs and retention. If you use a server over HTTP rather than HTTPS, the connection does not encrypt credentials or requests.</li>
+        <li><strong>Artwork and metadata providers</strong> — after you add music, Kord may automatically send artist, album, and track names or public music identifiers to MusicBrainz, Cover Art Archive, Wikidata, Wikimedia Commons, image hosts, or ListenBrainz to find artwork, artist information, credits, or aggregate popularity. Providers can receive your IP address and may keep request logs. Kord does not send your listening history to ListenBrainz.</li>
         <li><strong>Lyrics source</strong> — the Release app has no preset online lyrics source. If you enter one, Kord may send the track title, artist, album, and duration to that server and store returned lyrics locally. That server's operator controls its privacy practices.</li>
         <li><strong>AutoEq catalog</strong> — browsing headphone profiles downloads catalog and profile files from GitHub. Searches run on your device.</li>
         <li><strong>Google Drive</strong> — only if you connect it, as described above.</li>
-        <li><strong>Last.fm</strong> — scrobbling and popularity lookups are disabled in the current Release build. Kord does not send listening information to Last.fm in this configuration.</li>
       </ul>
 
       <h2>Analytics and tracking</h2>
       <p>Kord does not include an analytics SDK or ad tracker, and it does not maintain a Kord analytics account. The app records operational errors through Apple's logging system. Apple may make diagnostics available under your device's system sharing settings.</p>
 
       <h2>Data stored on your device</h2>
-      <p>Kord stores your library database, playback settings, EQ presets, and cached metadata locally using Apple's standard frameworks (SwiftData, the file system, and the Keychain for OAuth tokens). This data is included in your device backups and is protected by your device passcode and encryption.</p>
+      <p>Kord stores your library database, playback settings, EQ presets, and cached metadata locally using Apple's standard frameworks (SwiftData, the file system, and the Keychain for credentials). Depending on your device and backup settings, app data may be included in device backups. Device security settings protect locally stored data.</p>
 
       <h2>Children's privacy</h2>
       <p>Kord is not directed at children under 13. We do not knowingly collect personal information from children. Connected services may process information under their own policies.</p>
@@ -451,118 +450,13 @@ h1, h2, h3 {
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="mono">© <span data-year>2026</span> KORD AUDIO</span>
+      <span class="mono">© 2026 Andres Jimenez</span>
       <span class="mono">MADE FOR THE QUIET BETWEEN NOTES</span>
+      <p>Google Drive is a trademark of Google LLC. Jellyfin is a trademark of the Jellyfin project. Kord is not affiliated with or endorsed by Google or Jellyfin.</p>
     </div>
   </div>
 </footer>
 
-<script id="kord-js">
-/* KORD — site interactions (vanilla, minimal) */
-(function () {
-  'use strict';
-
-  /* --- Mobile nav --- */
-  function initNav() {
-    var toggle = document.querySelector('.nav-toggle');
-    var nav = document.querySelector('.nav');
-    if (!toggle || !nav) return;
-    toggle.addEventListener('click', function () {
-      nav.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', nav.classList.contains('is-open'));
-    });
-  }
-
-  /* --- Scroll reveals --- */
-  function initReveals() {
-    var els = document.querySelectorAll('.reveal');
-    if (!els.length) return;
-    var root = document.documentElement;
-    if (!('IntersectionObserver' in window)) { root.classList.remove('js-anim'); return; }
-    // Enable animation, but reveal anything already on-screen in the SAME tick (no flash).
-    root.classList.add('js-anim');
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-    var vh = window.innerHeight || 800;
-    // Reveal anything near the top immediately (absolute floor so a short
-    // capture viewport never leaves the hero hidden); observe the rest.
-    var floor = Math.max(vh * 0.95, 1100);
-    els.forEach(function (e) {
-      if (e.getBoundingClientRect().top < floor) { e.classList.add('in'); }
-      else { io.observe(e); }
-    });
-    // Safety net: never let content stay hidden.
-    setTimeout(function () { els.forEach(function (e) { e.classList.add('in'); }); }, 700);
-  }
-
-  /* --- Waitlist form (Formspree) ---
-     FORMSPREE_ID is the id at the end of your form's endpoint at
-     formspree.io (https://formspree.io/f/<id>). Until it's set,
-     submissions show a visible error instead of pretending to succeed. */
-  var FORMSPREE_ID = 'FORMSPREE_ID_HERE';
-  function initWaitlist() {
-    document.querySelectorAll('.waitlist-form').forEach(function (form) {
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var input = form.querySelector('input[type="email"]');
-        if (input && !input.checkValidity()) { input.reportValidity(); return; }
-        var btn = form.querySelector('button[type="submit"]');
-        if (btn) { btn.dataset.label = btn.textContent; btn.disabled = true; btn.textContent = 'Joining…'; }
-        fetch('https://formspree.io/f/' + FORMSPREE_ID, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: input ? input.value : '' })
-        }).then(function (res) {
-          if (!res.ok) throw new Error('formspree ' + res.status);
-          form.classList.add('is-done');
-          var ok = form.querySelector('.waitlist-success');
-          if (ok) ok.classList.add('is-shown');
-        }).catch(function () {
-          if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label; }
-          var note = form.querySelector('.waitlist-note');
-          if (!note) {
-            note = document.createElement('p');
-            note.className = 'waitlist-note';
-            form.appendChild(note);
-          }
-          note.textContent = "Couldn't reach the list just now. Please try again in a minute.";
-        });
-      });
-    });
-  }
-
-  /* --- FAQ accordion --- */
-  function initFaq() {
-    document.querySelectorAll('.faq-item').forEach(function (item) {
-      var q = item.querySelector('.faq-q');
-      var a = item.querySelector('.faq-a');
-      if (!q || !a) return;
-      q.addEventListener('click', function () {
-        var open = item.classList.toggle('open');
-        q.setAttribute('aria-expanded', open);
-        a.style.maxHeight = open ? a.scrollHeight + 'px' : 0;
-      });
-    });
-  }
-
-  function initYear() {
-    document.querySelectorAll('[data-year]').forEach(function (el) {
-      el.textContent = new Date().getFullYear();
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-    initNav();
-    initReveals();
-    initWaitlist();
-    initFaq();
-    initYear();
-  });
-})();
-
-</script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

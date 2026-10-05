@@ -305,73 +305,6 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
 }
 .platform-tags .dotsep { width: 4px; height: 4px; border-radius: 50%; background: var(--bronze); }
 
-/* ---------- Waitlist form ---------- */
-.waitlist {
-  display: flex;
-  gap: 10px;
-  max-width: 460px;
-  background: var(--glass);
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  padding: 6px 6px 6px 6px;
-  transition: border-color .25s var(--ease), box-shadow .25s var(--ease);
-}
-.waitlist:focus-within {
-  border-color: var(--gold);
-  box-shadow: 0 0 0 4px rgba(197,138,58,0.12);
-}
-.waitlist input {
-  flex: 1;
-  min-width: 0;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 1rem;
-  padding: 12px 8px 12px 18px;
-}
-.waitlist input::placeholder { color: var(--text-faint); }
-.waitlist .btn { flex-shrink: 0; }
-.waitlist--stack { flex-direction: column; border-radius: var(--radius); padding: 0; gap: 0; background: none; border: none; }
-.waitlist--stack input {
-  background: var(--glass);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-sm);
-  padding: 15px 18px;
-}
-.waitlist--stack .btn { width: 100%; }
-
-.waitlist-note {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  letter-spacing: 0.04em;
-  color: var(--text-faint);
-  margin-top: 14px;
-}
-.waitlist-success {
-  display: none;
-  align-items: center;
-  gap: 12px;
-  max-width: 460px;
-  padding: 16px 22px;
-  border-radius: 999px;
-  background: rgba(197,138,58,0.10);
-  border: 1px solid var(--line-strong);
-  color: var(--gold-hi);
-  font-weight: 500;
-  animation: pop .5s var(--ease);
-}
-.waitlist-success.is-shown { display: flex; }
-.waitlist-form.is-done .waitlist { display: none; }
-.check-badge {
-  width: 26px; height: 26px; border-radius: 50%;
-  background: linear-gradient(180deg, var(--gold-hi), var(--gold));
-  display: grid; place-items: center; flex-shrink: 0;
-}
-.check-badge svg { width: 14px; height: 14px; stroke: #20120A; }
-@keyframes pop { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
-
 /* ---------- iPhone now-playing mockup (mirrors the Kord iOS app) ---------- */
 .iphone {
   width: min(330px, 82vw);
@@ -491,7 +424,6 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
   overflow: hidden;
 }
 .cta-band h2 { margin-bottom: 16px; }
-.cta-band .waitlist, .cta-band .waitlist-success { margin-inline: auto; }
 .cta-band .lead { margin-inline: auto; margin-bottom: 30px; }
 
 /* ---------- Footer ---------- */
@@ -649,9 +581,6 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
   }
   .nav.is-open .nav__links a { padding: 12px 0; font-size: 1.05rem; border-bottom: 1px solid var(--line); }
   .nav.is-open .nav__cta { display: flex; padding: 8px var(--gutter) 20px; position: absolute; left: 0; right: 0; top: calc(68px + 270px); background: rgba(9,8,6,0.97); }
-  .waitlist { flex-direction: column; border-radius: var(--radius); padding: 8px; gap: 8px; }
-  .waitlist input { padding: 12px 14px; }
-  .waitlist .btn { width: 100%; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
 }
 
@@ -670,7 +599,7 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
         <li><a href="changelog">Changelog</a></li>
         <li><a href="support">Support</a></li>
       </ul>
-      <a class="btn btn--gold nav__cta" href="#waitlist">Join the waitlist</a>
+      <a class="btn btn--gold nav__cta" href="download">Coming soon on iPhone</a>
     </nav>
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -685,22 +614,9 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
       <div class="hero__copy">
         <p class="eyebrow">Lossless music player · iPhone</p>
         <h1 class="display">Play your <span class="gold-text">FLAC library</span> on iPhone</h1>
-        <p class="lead">Kord is a free-at-launch FLAC player for iPhone (iOS 18 or later). Add music from Apple Files, choose individual Google Drive files, or connect your own Jellyfin server. Your music, your library — no bundled catalog.</p>
+        <p class="lead">Kord is a free FLAC player for iPhone (iOS 18 or later). Add music from Apple Files, choose individual Google Drive™ files, or connect your own Jellyfin server. Your music, your library, with no bundled catalog.</p>
 
-        <div id="waitlist">
-          <!-- Reusable waitlist component -->
-          <form class="waitlist-form" novalidate>
-            <div class="waitlist">
-              <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
-              <button type="submit" class="btn btn--gold">Join the waitlist</button>
-            </div>
-            <div class="waitlist-success" role="status">
-              <span class="check-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
-              <span>You're on the list. I'll email you the moment Kord ships.</span>
-            </div>
-            <p class="waitlist-note">No spam. One email when it's ready to play.</p>
-          </form>
-        </div>
+        <p>Coming soon to the App Store for iPhone. <a href="mailto:support@kordsound.com">Contact support@kordsound.com</a>.</p>
 
         <div class="platform-tags">
           <span>iOS 18 or later</span><span class="dotsep"></span>
@@ -708,12 +624,12 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
         </div>
       </div>
 
-      <!-- Real Kord Now Playing screenshot inside a CSS device bezel -->
+      <!-- Kord Now Playing screenshot inside a CSS device bezel -->
       <div class="hero__visual">
-        <div class="iphone" role="img" aria-label="Kord Now Playing screen on iPhone — 'Lover Girl' by Laufey playing in lossless FLAC">
+        <div class="iphone" role="img" aria-label="Kord Now Playing screen on iPhone showing fictional music">
           <div class="iphone__screen">
             <img class="iphone__shot" src="assets/now-playing.webp" width="921" height="2002"
-                 alt="Kord's Now Playing screen showing 'Lover Girl' by Laufey with album artwork, a waveform scrubber, and a lossless FLAC 16/44.1 audio badge" />
+                 alt="Kord Now Playing screen showing First Pattern by Mira Vale with original geometric artwork and a FLAC 24/96 badge" />
             <div class="iphone__island" aria-hidden="true"></div>
             <div class="ios-home" aria-hidden="true"></div>
           </div>
@@ -780,19 +696,10 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
   <section class="section section--tight" data-screen-label="Home / CTA">
     <div class="container">
       <div class="cta-band reveal">
-        <p class="eyebrow" style="justify-content:center;">Be first in line</p>
+        <p class="eyebrow" style="justify-content:center;">For iPhone</p>
         <h2 class="h2">Songs you know have more to give.</h2>
-        <p class="lead">Kord is in private development. Join the waitlist and I'll send you an invite the moment it's ready for your ears.</p>
-        <form class="waitlist-form" novalidate>
-          <div class="waitlist">
-            <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
-            <button type="submit" class="btn btn--gold">Join the waitlist</button>
-          </div>
-          <div class="waitlist-success" role="status">
-            <span class="check-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
-            <span>You're on the list. I'll be in touch.</span>
-          </div>
-        </form>
+        <p class="lead">Coming soon to the App Store for iPhone.</p>
+        <a class="btn btn--gold" href="mailto:support@kordsound.com">Contact support@kordsound.com</a>
       </div>
     </div>
   </section>
@@ -831,119 +738,13 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="mono">© <span data-year>2026</span> KORD AUDIO</span>
+      <span class="mono">© 2026 Andres Jimenez</span>
       <span class="mono">MADE FOR THE QUIET BETWEEN NOTES</span>
+      <p>Google Drive is a trademark of Google LLC. Jellyfin is a trademark of the Jellyfin project. Kord is not affiliated with or endorsed by Google or Jellyfin.</p>
     </div>
   </div>
 </footer>
 
-<!-- Source of truth: assets/site.js (inlined below) -->
-<script id="kord-js">
-/* KORD — site interactions (vanilla, minimal) */
-(function () {
-  'use strict';
-
-  /* --- Mobile nav --- */
-  function initNav() {
-    var toggle = document.querySelector('.nav-toggle');
-    var nav = document.querySelector('.nav');
-    if (!toggle || !nav) return;
-    toggle.addEventListener('click', function () {
-      nav.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', nav.classList.contains('is-open'));
-    });
-  }
-
-  /* --- Scroll reveals --- */
-  function initReveals() {
-    var els = document.querySelectorAll('.reveal');
-    if (!els.length) return;
-    var root = document.documentElement;
-    if (!('IntersectionObserver' in window)) { root.classList.remove('js-anim'); return; }
-    // Enable animation, but reveal anything already on-screen in the SAME tick (no flash).
-    root.classList.add('js-anim');
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-    var vh = window.innerHeight || 800;
-    // Reveal anything near the top immediately (absolute floor so a short
-    // capture viewport never leaves the hero hidden); observe the rest.
-    var floor = Math.max(vh * 0.95, 1100);
-    els.forEach(function (e) {
-      if (e.getBoundingClientRect().top < floor) { e.classList.add('in'); }
-      else { io.observe(e); }
-    });
-    // Safety net: never let content stay hidden.
-    setTimeout(function () { els.forEach(function (e) { e.classList.add('in'); }); }, 700);
-  }
-
-  /* --- Waitlist form (Formspree) ---
-     FORMSPREE_ID is the id at the end of your form's endpoint at
-     formspree.io (https://formspree.io/f/<id>). Until it's set,
-     submissions show a visible error instead of pretending to succeed. */
-  var FORMSPREE_ID = 'FORMSPREE_ID_HERE';
-  function initWaitlist() {
-    document.querySelectorAll('.waitlist-form').forEach(function (form) {
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var input = form.querySelector('input[type="email"]');
-        if (input && !input.checkValidity()) { input.reportValidity(); return; }
-        var btn = form.querySelector('button[type="submit"]');
-        if (btn) { btn.dataset.label = btn.textContent; btn.disabled = true; btn.textContent = 'Joining…'; }
-        fetch('https://formspree.io/f/' + FORMSPREE_ID, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: input ? input.value : '' })
-        }).then(function (res) {
-          if (!res.ok) throw new Error('formspree ' + res.status);
-          form.classList.add('is-done');
-          var ok = form.querySelector('.waitlist-success');
-          if (ok) ok.classList.add('is-shown');
-        }).catch(function () {
-          if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label; }
-          var note = form.querySelector('.waitlist-note');
-          if (!note) {
-            note = document.createElement('p');
-            note.className = 'waitlist-note';
-            form.appendChild(note);
-          }
-          note.textContent = "Couldn't reach the list just now. Please try again in a minute.";
-        });
-      });
-    });
-  }
-
-  /* --- FAQ accordion --- */
-  function initFaq() {
-    document.querySelectorAll('.faq-item').forEach(function (item) {
-      var q = item.querySelector('.faq-q');
-      var a = item.querySelector('.faq-a');
-      if (!q || !a) return;
-      q.addEventListener('click', function () {
-        var open = item.classList.toggle('open');
-        q.setAttribute('aria-expanded', open);
-        a.style.maxHeight = open ? a.scrollHeight + 'px' : 0;
-      });
-    });
-  }
-
-  function initYear() {
-    document.querySelectorAll('[data-year]').forEach(function (el) {
-      el.textContent = new Date().getFullYear();
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-    initNav();
-    initReveals();
-    initWaitlist();
-    initFaq();
-    initYear();
-  });
-})();
-
-</script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

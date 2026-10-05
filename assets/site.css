@@ -277,73 +277,6 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
 }
 .platform-tags .dotsep { width: 4px; height: 4px; border-radius: 50%; background: var(--bronze); }
 
-/* ---------- Waitlist form ---------- */
-.waitlist {
-  display: flex;
-  gap: 10px;
-  max-width: 460px;
-  background: var(--glass);
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  padding: 6px 6px 6px 6px;
-  transition: border-color .25s var(--ease), box-shadow .25s var(--ease);
-}
-.waitlist:focus-within {
-  border-color: var(--gold);
-  box-shadow: 0 0 0 4px rgba(197,138,58,0.12);
-}
-.waitlist input {
-  flex: 1;
-  min-width: 0;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 1rem;
-  padding: 12px 8px 12px 18px;
-}
-.waitlist input::placeholder { color: var(--text-faint); }
-.waitlist .btn { flex-shrink: 0; }
-.waitlist--stack { flex-direction: column; border-radius: var(--radius); padding: 0; gap: 0; background: none; border: none; }
-.waitlist--stack input {
-  background: var(--glass);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-sm);
-  padding: 15px 18px;
-}
-.waitlist--stack .btn { width: 100%; }
-
-.waitlist-note {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  letter-spacing: 0.04em;
-  color: var(--text-faint);
-  margin-top: 14px;
-}
-.waitlist-success {
-  display: none;
-  align-items: center;
-  gap: 12px;
-  max-width: 460px;
-  padding: 16px 22px;
-  border-radius: 999px;
-  background: rgba(197,138,58,0.10);
-  border: 1px solid var(--line-strong);
-  color: var(--gold-hi);
-  font-weight: 500;
-  animation: pop .5s var(--ease);
-}
-.waitlist-success.is-shown { display: flex; }
-.waitlist-form.is-done .waitlist { display: none; }
-.check-badge {
-  width: 26px; height: 26px; border-radius: 50%;
-  background: linear-gradient(180deg, var(--gold-hi), var(--gold));
-  display: grid; place-items: center; flex-shrink: 0;
-}
-.check-badge svg { width: 14px; height: 14px; stroke: #20120A; }
-@keyframes pop { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
-
 /* ---------- iPhone now-playing mockup (mirrors the Kord iOS app) ---------- */
 .iphone {
   width: min(330px, 82vw);
@@ -463,7 +396,6 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
   overflow: hidden;
 }
 .cta-band h2 { margin-bottom: 16px; }
-.cta-band .waitlist, .cta-band .waitlist-success { margin-inline: auto; }
 .cta-band .lead { margin-inline: auto; margin-bottom: 30px; }
 
 /* ---------- Footer ---------- */
@@ -621,8 +553,5 @@ em.serif-italic { font-style: italic; color: var(--gold-hi); }
   }
   .nav.is-open .nav__links a { padding: 12px 0; font-size: 1.05rem; border-bottom: 1px solid var(--line); }
   .nav.is-open .nav__cta { display: flex; padding: 8px var(--gutter) 20px; position: absolute; left: 0; right: 0; top: calc(68px + 270px); background: rgba(9,8,6,0.97); }
-  .waitlist { flex-direction: column; border-radius: var(--radius); padding: 8px; gap: 8px; }
-  .waitlist input { padding: 12px 14px; }
-  .waitlist .btn { width: 100%; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
 }
